@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KR Real-Estate | Luxe Living Reimagined</title>
+  <!-- Google Fonts + Icons + AOS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fc;
+      color: #0a1c2f;
+      scroll-behavior: smooth;
+    }
+
+    /* Glassmorphic Header */
+    header {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+      padding: 1rem 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s;
+      border-bottom: 1px solid rgba(25, 118, 210, 0.15);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo i {
+      font-size: 2rem;
+      color: #1976d2;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    header h2 {
+      font-weight: 800;
+      font-size: 1.7rem;
+      background: linear-gradient(130deg, #0f2b3d, #1976d2);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #1e3a5f;
+      transition: 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      padding: 6px 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    nav a:hover {
+      color: #1976d2;
+      border-bottom-color: #1976d2;
+      transform: translateY(-1px);
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    /* filter bar premium */
+    .filter-panel {
+      background: white;
+      border-radius: 80px;
+      padding: 0.6rem 1.2rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.05);
+      border: 1px solid #eef2ff;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .filter-group-custom {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    select, .reset-btn, .action-btn {
+      padding: 10px 20px;
+      border-radius: 48px;
+      border: 1px solid #e2e8f0;
+      background: white;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.85rem;
+    }
+
+    select {
+      background: #fafcff;
+    }
+
+    select:hover, .reset-btn:hover {
+      background: #f0f4fe;
+      border-color: #1976d2;
+    }
+
+    .reset-btn {
+      background: #f1f4f9;
+      color: #1e2a3e;
+    }
+
+    .reset-btn:active {
+      transform: scale(0.96);
+    }
+
+    .header-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      gap: 1.5rem;
+    }
+
+    .count-badge {
+      background: #1976d2;
+      color: white;
+      border-radius: 60px;
+      padding: 4px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 12px;
+    }
+
+    /* property grid */
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .property-card {
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+      transition: all 0.35s cubic-bezier(0.2, 0, 0, 1);
+      box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.08);
+      cursor: pointer;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .property-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 36px -12px rgba(0, 0, 0, 0.2);
+    }
+
+    .img-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .property-card:hover .card-img {
+      transform: scale(1.05);
+    }
+
+    .img-gallery-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      pointer-events: none;
+    }
+
+    .card-content {
+      padding: 1.3rem 1.5rem 1.6rem;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #0f2b3d;
+    }
+
+    .price small {
+      font-weight: 500;
+      font-size: 0.8rem;
+      color: #5e6f8d;
+    }
+
+    .bhk-chip {
+      background: #eef2ff;
+      padding: 5px 12px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      color: #1976d2;
+    }
+
+    .prop-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin: 8px 0 6px;
+    }
+
+    .prop-features {
+      display: flex;
+      gap: 18px;
+      margin: 14px 0;
+      font-size: 0.85rem;
+      color: #4a5b79;
+      flex-wrap: wrap;
+    }
+
+    .prop-features i {
+      width: 20px;
+      color: #1976d2;
+    }
+
+    .btn-modern {
+      background: #1976d2;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 44px;
+      color: white;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: 0.2s;
+      cursor: pointer;
+      margin-top: 12px;
+      font-size: 0.9rem;
+    }
+
+    .btn-modern:hover {
+      background: #0f5bb5;
+      gap: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    .info-sections {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-card {
+      flex: 1;
+      background: white;
+      border-radius: 32px;
+      padding: 2rem;
+      transition: 0.2s;
+      border: 1px solid #eef2ff;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+    }
+
+    footer {
+      background: #0b1622;
+      color: #b9c7d9;
+      text-align: center;
+      padding: 2rem;
+      border-radius: 32px 32px 0 0;
+      margin-top: 3rem;
+    }
+
+    /* MODAL ENHANCED */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(5px);
+      z-index: 1050;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      z-index: 1100;
+      border-radius: 40px;
+      max-width: 550px;
+      width: 90%;
+      padding: 2rem;
+      box-shadow: 0 35px 60px rgba(0, 0, 0, 0.3);
+      animation: modalPop 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    @keyframes modalPop {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -45%) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    .close-modal-btn {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      font-size: 32px;
+      cursor: pointer;
+      color: #94a3b8;
+      transition: 0.2s;
+      line-height: 1;
+    }
+
+    .close-modal-btn:hover {
+      color: #e53e3e;
+      transform: scale(1.1);
+    }
+
+    .detail-row {
+      margin: 14px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+    }
+
+    .gallery-modal-img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: 28px;
+      margin-bottom: 1rem;
+    }
+
+    .gallery-nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 1rem;
+    }
+
+    .gallery-nav button {
+      background: #f1f5f9;
+      border: none;
+      padding: 8px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    @media (max-width: 780px) {
+      header {
+        padding: 1rem;
+      }
+      .filter-panel {
+        border-radius: 32px;
+        justify-content: center;
+      }
+      .property-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      background: #ffffffcc;
+      border-radius: 48px;
+    }
+
+    #backToTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #1976d2;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      z-index: 99;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header data-aos="fade-down">
+  <div class="logo">
+    <i class="fas fa-building-user"></i>
+    <h2>KR Real-Estate</h2>
+  </div>
+  <nav>
+    <a href="#listings"><i class="fas fa-building"></i> Explore</a>
+    <a id="aboutNavBtn"><i class="fas fa-info-circle"></i> About</a>
+    <a id="contactNavBtn"><i class="fas fa-headset"></i> Contact</a>
+    <a id="logoutBtnHeader"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </nav>
+</header>
+
+<div class="container" id="listings">
+  <div class="header-row" data-aos="fade-up">
+    <h2>🏡 Premium Listings <span id="totalCountSpan" class="count-badge">0</span></h2>
+    <div class="filter-panel">
+      <select id="citySelect"><option value="all">All Cities</option></select>
+      <select id="areaSelect"><option value="all">Area (sqft)</option></select>
+      <select id="bhkSelect"><option value="all">BHK</option></select>
+      <select id="priceRangeSelect"><option value="all">Price Range</option></select>
+      <button id="resetFiltersBtn" class="reset-btn"><i class="fas fa-arrows-spin"></i> Reset</button>
+    </div>
+  </div>
+  <div id="propertyGridContainer" class="property-grid"></div>
+</div>
+
+<!-- About + Contact Section (modern toggle) -->
+<div class="container info-sections" id="infoDynamicSection">
+  <div id="aboutUsCard" class="info-card" data-aos="fade-right">
+    <i class="fas fa-gem" style="font-size: 2rem; color: #1976d2;"></i>
+    <h2 style="margin: 15px 0 10px;">About KR Real-Estate</h2>
+    <p>India’s most innovative real estate marketplace — blending AI, immersive tours, and trust. We’ve empowered 15,000+ families to find their dream homes across 30+ cities.</p>
+    <p><i class="fas fa-trophy"></i> Winner: "Best Customer Experience 2025"</p>
+    <p><i class="fas fa-globe"></i> 360° virtual tours • Verified listings • Zero brokerage options</p>
+  </div>
+  <div id="contactUsCard" class="info-card" style="display: none;" data-aos="fade-left">
+    <i class="fas fa-phone-alt" style="font-size: 2rem; color: #1976d2;"></i>
+    <h2 style="margin: 15px 0 10px;">Connect With Experts</h2>
+    <p><i class="fas fa-envelope"></i> <a href="mailto:karthikram1391@gmail.com">karthikram1391@gmail.com</a></p>
+    <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/919611459960" target="_blank">+91 9611459960 (WhatsApp)</a></p>
+    <p><i class="fas fa-map-pin"></i> Koramangala, Bengaluru - 560095</p>
+    <iframe width="100%" height="180" style="border-radius: 24px; margin: 12px 0;" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62241.8877383912!2d77.5791907!3d12.9351928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae14413a0c69d5%3A0x466a4ab7e4cf2293!2sKoramangala%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1710019623000"></iframe>
+    <button class="reset-btn" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=Koramangala+Bengaluru', '_blank')"><i class="fas fa-directions"></i> Get Directions</button>
+  </div>
+</div>
+
+<footer>
+  <div>🏆 KR Real-Estate — Where homes meet heart.</div>
+  <button id="creditsFooterBtn" style="background: none; border: none; color: #94a3b8; margin-top: 12px; cursor: pointer;"><i class="fas fa-code"></i> Credits & Support</button>
+  <div id="creditsPanel" style="display: none; margin-top: 12px;">
+    <p><i class="fas fa-laptop"></i> Crafted by KR Webcrafts • Next-Gen Realty Platform</p>
+    <a href="tel:+919611459960" style="color:#facc15; margin: 0 8px;"><i class="fas fa-phone"></i> Call</a> | 
+    <a href="https://wa.me/919611459960" target="_blank" style="color:#25D366;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+  </div>
+</footer>
+
+<!-- MODALS (Enhanced) -->
+<div id="globalOverlay" class="modal-overlay"></div>
+
+<!-- Property detail modal -->
+<div id="detailModal" class="modal">
+  <span class="close-modal-btn" id="closeDetailModalBtn">&times;</span>
+  <h2 id="detailTitle" style="font-size: 1.9rem;"></h2>
+  <div class="detail-row"><i class="fas fa-rupee-sign"></i> <strong id="detailPrice"></strong></div>
+  <div class="detail-row"><i class="fas fa-couch"></i> <span id="detailFurnishing"></span></div>
+  <div class="detail-row"><i class="fas fa-toilet"></i> <span id="detailToilets"></span></div>
+  <div class="detail-row"><i class="fas fa-layer-group"></i> <span id="detailFloor"></span></div>
+  <div class="detail-row"><i class="fas fa-parking"></i> <span id="detailParking"></span></div>
+  <div class="detail-row"><i class="fas fa-vector-square"></i> <span id="detailArea"></span></div>
+  <button id="viewGalleryFromDetailBtn" class="btn-modern" style="margin-top: 20px; background:#2c3e66;"><i class="fas fa-images"></i> View Gallery (Multiple Images)</button>
+</div>
+
+<!-- Image Gallery Modal (carousel) -->
+<div id="galleryModal" class="modal" style="max-width: 700px; padding: 1.5rem;">
+  <span class="close-modal-btn" id="closeGalleryBtn">&times;</span>
+  <div style="text-align: center;">
+    <img id="galleryMainImg" class="gallery-modal-img" src="" alt="property view">
+    <div class="gallery-nav">
+      <button id="prevGalleryBtn"><i class="fas fa-arrow-left"></i> Previous</button>
+      <button id="nextGalleryBtn">Next <i class="fas fa-arrow-right"></i></button>
+    </div>
+    <p id="galleryCounter" style="margin-top: 12px; font-weight: 500;"></p>
+  </div>
+</div>
+
+<button id="backToTop"><i class="fas fa-chevron-up"></i> Top</button>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 500, once: true });
+
+  // ---------- ADVANCED DATASET WITH MULTIPLE IMAGES PER PROPERTY ----------
+  const propertiesData = [
+    { id: 1, title: "Sunrise Palm Towers", city: "Mumbai", area: 1250, price: 18500000, bhk: 3, furnishing: "Fully Furnished", toilets: 3, floor: "12th Floor", parking: "Covered 2", mainImg: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600", gallery: ["https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700", "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=700", "https://images.unsplash.com/photo-1560185008-5f0f9c6e5b6b?w=700"] },
+    { id: 2, title: "Green Valley Estate", city: "Bengaluru", area: 980, price: 9200000, bhk: 2, furnishing: "Semi-Furnished", toilets: 2, floor: "5th Floor", parking: "Open 1", mainImg: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600", gallery: ["https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700", "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=700", "https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=700"] },
+    { id: 3, title: "Riverside Retreat", city: "Hyderabad", area: 1850, price: 26500000, bhk: 4, furnishing: "Fully Furnished", toilets: 4, floor: "Ground + 1", parking: "Covered 2", mainImg: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600", gallery: ["https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700", "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=700", "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=700"] },
+    { id: 4, title: "Skyline Loft", city: "Delhi", area: 750, price: 12500000, bhk: 2, furnishing: "Unfurnished", toilets: 2, floor: "18th Floor", parking: "Covered 1", mainImg: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600", gallery: ["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=700", "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=700", "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=700"] },
+    { id: 5, title: "Coastal Harmony", city: "Chennai", area: 1420, price: 15400000, bhk: 3, furnishing: "Fully Furnished", toilets: 3, floor: "7th Floor", parking: "Covered 2", mainImg: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=600", gallery: ["https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=700", "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=700", "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=700"] },
+    { id: 6, title: "Zen Garden Apartments", city: "Bengaluru", area: 1120, price: 11200000, bhk: 3, furnishing: "Semi-Furnished", toilets: 3, floor: "3rd Floor", parking: "Covered 1", mainImg: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600", gallery: ["https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=700", "https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=700", "https://images.unsplash.com/photo-1600210492493-0946911123ea?w=700"] },
+    { id: 7, title: "Luxury County", city: "Mumbai", area: 2100, price: 42000000, bhk: 5, furnishing: "Luxury Furnished", toilets: 5, floor: "Penthouse", parking: "Covered 3", mainImg: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600", gallery: ["https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=700", "https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=700", "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=700"] },
+    { id: 8, title: "Sunset Boulevard", city: "Pune", area: 880, price: 7900000, bhk: 2, furnishing: "Fully Furnished", toilets: 2, floor: "9th Floor", parking: "Open 1", mainImg: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600", gallery: ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=700", "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=700", "https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=700"] }
+  ];
+
+  let currentFiltered = [...propertiesData];
+  let currentGalleryProperty = null;
+  let currentGalleryIndex = 0;
+
+  // Helper: render property cards
+  function renderProperties() {
+    const container = document.getElementById('propertyGridContainer');
+    const totalSpan = document.getElementById('totalCountSpan');
+    totalSpan.innerText = currentFiltered.length;
+    if (currentFiltered.length === 0) {
+      container.innerHTML = `<div class="empty-state"><i class="fas fa-home fa-3x"></i><h3>No matching properties</h3><button class="reset-btn" onclick="resetAllFilters()">Clear Filters</button></div>`;
+      return;
+    }
+    container.innerHTML = currentFiltered.map(prop => `
+      <div class="property-card" data-id="${prop.id}" data-aos="fade-up">
+        <div class="img-wrapper">
+          <img class="card-img" src="${prop.mainImg}" alt="${prop.title}" loading="lazy">
+          <div class="img-gallery-badge"><i class="fas fa-images"></i> ${prop.gallery.length} photos</div>
+        </div>
+        <div class="card-content">
+          <div class="price-row">
+            <span class="price">₹${(prop.price/10000000).toFixed(1)} Cr <small>${prop.city}</small></span>
+            <span class="bhk-chip">${prop.bhk} BHK</span>
+          </div>
+          <div class="prop-title">${prop.title}</div>
+          <div class="prop-features">
+            <span><i class="fas fa-vector-square"></i> ${prop.area} sqft</span>
+            <span><i class="fas fa-bath"></i> ${prop.toilets}</span>
+            <span><i class="fas fa-couch"></i> ${prop.furnishing.substring(0,10)}</span>
+          </div>
+          <button class="btn-modern view-property-btn" data-id="${prop.id}"><i class="fas fa-expand-alt"></i> View Details</button>
+        </div>
+      </div>
+    `).join('');
+    // attach event listeners to buttons
+    document.querySelectorAll('.view-property-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = parseInt(btn.dataset.id);
+        const prop = currentFiltered.find(p => p.id === id);
+        if (prop) openPropertyDetail(prop);
+      });
+    });
+    document.querySelectorAll('.property-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if(e.target.classList.contains('view-property-btn')) return;
+        const id = parseInt(card.dataset.id);
+        const prop = currentFiltered.find(p => p.id === id);
+        if(prop) openPropertyDetail(prop);
+      });
+    });
+  }
+
+  function openPropertyDetail(prop) {
+    document.getElementById('detailTitle').innerHTML = `<i class="fas fa-building"></i> ${prop.title}`;
+    document.getElementById('detailPrice').innerHTML = `₹${(prop.price/10000000).toFixed(2)} Crore`;
+    document.getElementById('detailFurnishing').innerHTML = `${prop.furnishing}`;
+    document.getElementById('detailToilets').innerHTML = `${prop.toilets} Bathrooms`;
+    document.getElementById('detailFloor').innerHTML = `${prop.floor}`;
+    document.getElementById('detailParking').innerHTML = `${prop.parking}`;
+    document.getElementById('detailArea').innerHTML = `${prop.area} sqft`;
+    // store current property for gallery
+    currentGalleryProperty = prop;
+    const galleryBtn = document.getElementById('viewGalleryFromDetailBtn');
+    // remove previous listener and attach new
+    const newBtn = galleryBtn.cloneNode(true);
+    galleryBtn.parentNode.replaceChild(newBtn, galleryBtn);
+    newBtn.addEventListener('click', () => {
+      openGalleryModal(prop.gallery, 0);
+    });
+    openModal('detailModal');
+  }
+
+  function openGalleryModal(images, startIdx = 0) {
+    if(!images || images.length === 0) return;
+    currentGalleryIndex = startIdx;
+    const imgEl = document.getElementById('galleryMainImg');
+    imgEl.src = images[currentGalleryIndex];
+    document.getElementById('galleryCounter').innerText = `${currentGalleryIndex+1} / ${images.length}`;
+    openModal('galleryModal');
+    // attach dynamic navigation
+    const prevBtn = document.getElementById('prevGalleryBtn');
+    const nextBtn = document.getElementById('nextGalleryBtn');
+    const newPrev = prevBtn.cloneNode(true);
+    const newNext = nextBtn.cloneNode(true);
+    prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+    nextBtn.parentNode.replaceChild(newNext, nextBtn);
+    newPrev.addEventListener('click', () => {
+      if(images.length) {
+        currentGalleryIndex = (currentGalleryIndex - 1 + images.length) % images.length;
+        document.getElementById('galleryMainImg').src = images[currentGalleryIndex];
+        document.getElementById('galleryCounter').innerText = `${currentGalleryIndex+1} / ${images.length}`;
+      }
+    });
+    newNext.addEventListener('click', () => {
+      if(images.length) {
+        currentGalleryIndex = (currentGalleryIndex + 1) % images.length;
+        document.getElementById('galleryMainImg').src = images[currentGalleryIndex];
+        document.getElementById('galleryCounter').innerText = `${currentGalleryIndex+1} / ${images.length}`;
+      }
+    });
+  }
+
+  // Filter logic
+  function filterList() {
+    const city = document.getElementById('citySelect').value;
+    const areaVal = document.getElementById('areaSelect').value;
+    const bhkVal = document.getElementById('bhkSelect').value;
+    const priceRange = document.getElementById('priceRangeSelect').value;
+    let filtered = propertiesData.filter(p => {
+      if(city !== 'all' && p.city !== city) return false;
+      if(areaVal !== 'all' && p.area != areaVal) return false;
+      if(bhkVal !== 'all' && p.bhk != bhkVal) return false;
+      if(priceRange !== 'all') {
+        const ranges = [
+          { min: 0, max: 10000000, label: "Under 1Cr" },
+          { min: 10000000, max: 20000000, label: "1-2 Cr" },
+          { min: 20000000, max: 30000000, label: "2-3 Cr" },
+          { min: 30000000, max: Infinity, label: "3Cr+" }
+        ];
+        const selected = ranges[parseInt(priceRange)];
+        if(p.price < selected.min || p.price >= selected.max) return false;
+      }
+      return true;
+    });
+    currentFiltered = filtered;
+    renderProperties();
+  }
+
+  function populateFiltersUI() {
+    const cities = [...new Set(propertiesData.map(p=>p.city))];
+    const citySel = document.getElementById('citySelect');
+    citySel.innerHTML = '<option value="all">🌆 All Cities</option>' + cities.map(c=>`<option value="${c}">${c}</option>`).join('');
+    const areas = [...new Set(propertiesData.map(p=>p.area))].sort((a,b)=>a-b);
+    const areaSel = document.getElementById('areaSelect');
+    areaSel.innerHTML = '<option value="all">📏 All Areas</option>' + areas.map(a=>`<option value="${a}">${a} sqft</option>`).join('');
+    const bhkUniq = [...new Set(propertiesData.map(p=>p.bhk))].sort();
+    const bhkSel = document.getElementById('bhkSelect');
+    bhkSel.innerHTML = '<option value="all">🛏️ All BHK</option>' + bhkUniq.map(b=>`<option value="${b}">${b} BHK</option>`).join('');
+    const priceSel = document.getElementById('priceRangeSelect');
+    priceSel.innerHTML = `<option value="all">💰 All Prices</option>
+      <option value="0">Under ₹1 Cr</option>
+      <option value="1">₹1 Cr - ₹2 Cr</option>
+      <option value="2">₹2 Cr - ₹3 Cr</option>
+      <option value="3">Above ₹3 Cr</option>`;
+  }
+
+  function resetAllFilters() {
+    document.getElementById('citySelect').value = 'all';
+    document.getElementById('areaSelect').value = 'all';
+    document.getElementById('bhkSelect').value = 'all';
+    document.getElementById('priceRangeSelect').value = 'all';
+    filterList();
+  }
+
+  // Modal helpers with overlay closing and cancel
+  function openModal(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+    document.getElementById('globalOverlay').style.display = 'block';
+  }
+  function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+    document.getElementById('globalOverlay').style.display = 'none';
+  }
+  window.closeAllModals = () => {
+    closeModal('detailModal');
+    closeModal('galleryModal');
+  };
+  // Show About / Contact toggle
+  function showAboutOnly() {
+    document.getElementById('aboutUsCard').style.display = 'block';
+    document.getElementById('contactUsCard').style.display = 'none';
+    document.getElementById('infoDynamicSection').scrollIntoView({ behavior: 'smooth' });
+  }
+  function showContactOnly() {
+    document.getElementById('aboutUsCard').style.display = 'none';
+    document.getElementById('contactUsCard').style.display = 'block';
+    document.getElementById('infoDynamicSection').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // Event listeners
+  document.getElementById('resetFiltersBtn').addEventListener('click', resetAllFilters);
+  document.getElementById('citySelect').addEventListener('change', filterList);
+  document.getElementById('areaSelect').addEventListener('change', filterList);
+  document.getElementById('bhkSelect').addEventListener('change', filterList);
+  document.getElementById('priceRangeSelect').addEventListener('change', filterList);
+  document.getElementById('closeDetailModalBtn').addEventListener('click', () => closeModal('detailModal'));
+  document.getElementById('closeGalleryBtn').addEventListener('click', () => closeModal('galleryModal'));
+  document.getElementById('globalOverlay').addEventListener('click', () => { closeModal('detailModal'); closeModal('galleryModal'); });
+  document.getElementById('backToTop').addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+  document.getElementById('aboutNavBtn').addEventListener('click', showAboutOnly);
+  document.getElementById('contactNavBtn').addEventListener('click', showContactOnly);
+  document.getElementById('logoutBtnHeader').addEventListener('click', () => { alert("Logged out safely. Visit again!"); location.reload(); });
+  document.getElementById('creditsFooterBtn').addEventListener('click', () => { const cp = document.getElementById('creditsPanel'); cp.style.display = cp.style.display === 'none' ? 'block' : 'none'; });
+
+  populateFiltersUI();
+  filterList();
+  showAboutOnly();
+</script>
+</body>
+</html>
